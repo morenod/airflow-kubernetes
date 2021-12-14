@@ -1,0 +1,15 @@
+{
+    "aws_profile": "",
+    "aws_access_key_id": "",
+    "aws_secret_access_key": "",
+    "rosa_environment": "staging",
+    "rosa_installation_method": "rosa",
+    "ocm_environment": "stage",
+    "openshift_worker_count": 27,
+    "openshift_network_type": "OpenShiftSDN",
+    "openshift_worker_instance_type": "m5.2xlarge",
+    "machineset_metadata_label_prefix": "machine.openshift.io",
+    "openshift_workload_node_instance_type": "m5.2xlarge",
+    "aro_username": "aea43d78-08d6-42cb-b7ae-a1f95c59eb83",
+    "aro_tenant": "6047c7e9-b2ad-488d-a54e-dc3f6be6a7ee"
+}

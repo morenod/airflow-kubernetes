@@ -146,6 +146,33 @@ class Manifest():
                         }
                     )
 
+    def get_aro_releases(self):
+        aro = self.yaml['platforms']['aro']
+        for version in self.yaml['versions']:
+            if version['version'] in aro['versions']:
+                version_number = version['version']
+                release_stream = version['releaseStream']
+                version_alias = version['alias']
+                for variant in aro['variants']:
+                    release = OpenshiftRelease(
+                        platform="aro",
+                        version=version_number,
+                        release_stream=release_stream,
+                        latest_release=self.latest_releases[release_stream],
+                        variant=variant['name'],
+                        config=variant['config'],
+                        version_alias=version_alias
+                    )
+                    schedule = self._get_schedule(variant, 'aro')
+                    dag_config = self._build_dag_config(schedule)
+
+                    self.releases.append(
+                        {
+                            "config": dag_config,
+                            "release": release
+                        }
+                    )
+
     def get_rogcp_releases(self):
         rogcp = self.yaml['platforms']['rogcp']
         for version in self.yaml['versions']:
@@ -237,6 +264,8 @@ class Manifest():
             self.get_hypershift_releases()
         if 'prebuilt' in self.yaml['platforms']:
             self.get_prebuilt_releases()
+        if 'aro' in self.yaml['platforms']:
+            self.get_aro_releases()
         return self.releases
 
     def _get_dependencies(self):
